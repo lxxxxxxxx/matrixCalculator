@@ -12,11 +12,9 @@ Mat::Mat(_INT rows, _INT cols){
 	for (i,rows){
 		this->element[i] = new _INT[cols];
 	}
-	srand(10);
 	for (i,rows){
 		for (j,cols){
-			//用小于255的随机数填充
-			this->element[i][j] = rand() % 255;
+			this->element[i][j] = 0;
 		}	
 	}
 }
