@@ -10,3 +10,5 @@ using namespace std;
 #define _STRING string
 #define _BOOL bool
 #define _VOID void
+
+#define for(i,n) for(_INT i=0;i<n;i++)
