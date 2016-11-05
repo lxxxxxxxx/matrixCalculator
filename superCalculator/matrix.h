@@ -1,14 +1,6 @@
 #include <iostream>
 #include "common.h"
 
-
-typedef struct{
-	_INT rows;
-	_INT cols;
-	_INT **element;
-}MATRIX;
-
-
 class Mat{
 public:
 
@@ -32,6 +24,8 @@ public:
 	//~Mat();
 
 private:
-	MATRIX mat;
+	_INT rows;
+	_INT cols;
+	_INT **element;
 
 };
