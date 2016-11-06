@@ -1,21 +1,26 @@
 #include <iostream>
 #include "common.h"
+#include "matrixType.h"
 
 class Mat{
 public:
 
 	Mat(void);
 	Mat(_INT rows, _INT cols);
-	Mat(_INT rows, _INT cols, _INT value);
 	//SG
 	_INT getRows();
 	_INT getCols();
 	_VOID setRows(_INT rows);
 	_VOID setCols(_INT cols);
+	//随机数填充
+	_VOID fill();
+	_VOID fill(_INT value);
 	//矩阵输出
 	friend ostream &operator <<(ostream &out,const Mat &mat_out);
+	//字符串解析
+	void strParse(string str);
 	//矩阵输入
-	//friend istream &operator >>(istream &in, Mat mat_in);
+	friend istream &operator >>(istream &in, Mat mat_in);
 	//矩阵加法
 	Mat operator +(const Mat &mat_right);
 	//矩阵减法

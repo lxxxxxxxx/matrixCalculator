@@ -18,22 +18,6 @@ Mat::Mat(_INT rows, _INT cols){
 		}	
 	}
 }
-Mat::Mat(_INT rows, _INT cols, _INT value){
-	this->rows = rows;
-	this->cols = cols;
-
-	this->element = new _INT*[rows];
-	for (i, rows){
-		this->element[i] = new _INT[cols];
-	}
-
-	for (i, rows){
-		for (j, cols){
-			//用小于255的随机数填充
-			this->element[i][j] = value;
-		}
-	}
-}
 
 Mat::~Mat(){
 	for (i,this->cols){
@@ -54,7 +38,25 @@ _VOID Mat::setCols(_INT cols){
 	this->cols = cols;
 }
 
-//worked
+//fill   ok
+_VOID Mat::fill(){
+	srand(10);
+	for (i, this->rows){
+		for (j, this->cols){
+			this->element[i][j] = rand() % 10;
+		}
+	}
+}
+_VOID Mat::fill(_INT value){
+	for (i, this->rows){
+		for (j, this->cols){
+			this->element[i][j] = value;
+		}
+	}
+}
+
+
+//ok
 ostream &operator <<(ostream &out,const Mat &mat_out){
 	if (mat_out.rows==0||mat_out.rows==0)
 		out << "[\nNULL\n]";
@@ -70,14 +72,38 @@ ostream &operator <<(ostream &out,const Mat &mat_out){
 	}
 	return out;
 }
-//矩阵输入
-//istream &operator >>(istream &in, Mat mat_in){
-//	string str_mat;
-//	in >> str_mat;
-//
-//}
+//字符串解析
+void Mat::strParse(string str){
+	_INT rows = 0;
+	_INT cols = 0;
+	_INT n = 0;
+	_INT first;
+	while (1){
+		if (str.find(";",n)==string::npos){
+			break;
+		}
+		else{
+			first = str.find(";");
+			n = str.find(";", n)+1;
+			rows++;
+		}
+	}
+	for (i, first){
+		cout<<str.find(" ", i);
+	}
 
-//worked
+	cout << "rows:    " << ++rows << "    first:    " << first << endl;
+}
+//矩阵输入
+istream &operator >>(istream &in, Mat mat_in){
+	string str_mat;
+	in >> str_mat;
+	str_mat.find(";");
+	cout << str_mat;
+	return in;
+}
+
+//ok
 Mat Mat::operator+(const Mat &mat_right){
 	if (!(this->rows == mat_right.rows&&this->cols == mat_right.cols)){
 		std::cout << "the nubmers of lines and columns of two matrixs should be identical." << endl;
@@ -95,7 +121,7 @@ Mat Mat::operator+(const Mat &mat_right){
 	}
 	
 }
-//worked
+//ok
 Mat Mat::operator-(const Mat &mat_right){
 	if (!(this->rows == mat_right.rows&&this->rows == mat_right.rows)){
 		std::cout << "\nthe nubmers of lines and columns of two matrixs should be identical." << endl;
@@ -113,7 +139,7 @@ Mat Mat::operator-(const Mat &mat_right){
 	}
 	
 }
-//worked
+//ok
 _VOID Mat::deepcopy(const Mat &mat_original){
 	this->rows = mat_original.rows;
 	this->cols = mat_original.cols;
@@ -127,18 +153,18 @@ _VOID Mat::deepcopy(const Mat &mat_original){
 		}
 	}
 }
-//worked
+//ok
 Mat::Mat(Mat &mat_right){
 	cout << "调用了拷贝构造函数" << endl;
 	deepcopy(mat_right);
 }
-//worked
+//ok
 Mat &Mat::operator=(Mat &mat_right){
 	std::cout << "调用了赋值运算符" << endl;
 	deepcopy(mat_right);
 	return *this;
 }
-//woeked
+//ok
 Mat Mat::operator*(const Mat &mat_right){
 	if (this->cols != mat_right.rows){
 		cout << "wrong operant!!!" << endl;
@@ -146,7 +172,8 @@ Mat Mat::operator*(const Mat &mat_right){
 		return mat;
 	}
 	else{
-		Mat result(this->rows, mat_right.cols,0);
+		Mat result(this->rows, mat_right.cols);
+		result.fill(0);
 		for (i, this->rows){
 			for (j, mat_right.cols){
 				for (k, this->cols){

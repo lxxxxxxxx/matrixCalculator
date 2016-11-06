@@ -16,6 +16,9 @@
     <Filter Include="头文件\sc_datastructure">
       <UniqueIdentifier>{a329efb1-72f6-4127-980d-0e915e74f062}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\sc_datastructure\enumeration">
+      <UniqueIdentifier>{7ec663c0-569a-483c-9c15-e7fa82722c7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="matrix.h">
@@ -26,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="common.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="matrixType.h">
+      <Filter>头文件\sc_datastructure\enumeration</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
