@@ -1,31 +1,18 @@
 #include "matrix.h"
 
 int main(){
-	/*Mat mat1(2,2);
-	Mat mat2 = mat1;
-	Mat mat3;*/
-	//cout << "mat1+mat2" << mat1.operator+(mat1) << endl;
-	//cout << "mat1+mat2" << mat1 + mat2 << endl;
-	//cout << "mat1-mat2" << mat1 - mat2 << endl;
-	//cout << "mat1*mat2" << mat1 * mat2 << endl;
-	//mat3=mat1 + mat2;
-	//cout << "mat1" << mat1 << endl;
-	//cout << "mat2" << mat2 << endl;
-	//mat3 = mat2 = mat1;
-	//cout << "mat3" << mat3 << endl;
-	//cout << "ÊäÈë" << endl;
-	//cin >> mat3;
-	//cout << "sjdlf" << endl;
-	//string str = "1 2 3;1 2 3;1 2 3;1 2 3";
-	//Mat mat;
-	//mat.strParse(str);
-
-	//Mat mat(5, 5);
-	//mat.fill(5);
-	//cout << mat;
-	cout << enumeration::matrixType::DIAGONAL_MATRIX << endl;
-	cout << enumeration::matrixType::UPPER_TRIANGULAR_MATRIX << endl;
-
+	Mat mat1(2, 3);
+	cout << "Ëæ»úÊýÌî³ä\n" << mat1 << endl;
+	Mat mat2(2, 3, 3);
+	cout << "3Ìî³ä\n" << mat2 << endl;
+	Mat mat3(3,0);
+	cout << "µ¥Î»¾ØÕó\n" << mat3 << endl;
+	Mat mat4(3, 1);
+	cout << "¶Ô½Ç¾ØÕó\n" << mat4 << endl;
+	Mat mat5(3, 2);
+	cout << "ÉÏÈý½Ç¾ØÕó\n" << mat5 << endl;
+	Mat mat6(3, 0);
+	cout << "ÏÂÈý½Ç¾ØÕó\n" << mat6 << endl;
 	system("pause");
 	return 0;
 }
