@@ -7,24 +7,94 @@ Mat::Mat(){
 Mat::Mat(_INT rows, _INT cols){
 	this->rows = rows;
 	this->cols = cols;
-
+	this->element = new _INT*[rows];
+	for (i, rows){
+		this->element[i] = new _INT[cols];
+	}
+	for (i, rows){
+		for (j, cols){
+			this->element[i][j] = rand()%10;
+		}
+	}
+}
+Mat::Mat(_INT rows, _INT cols,_INT value){
+	this->rows = rows;
+	this->cols = cols;
 	this->element = new _INT*[rows];
 	for (i,rows){
 		this->element[i] = new _INT[cols];
 	}
 	for (i,rows){
 		for (j,cols){
-			this->element[i][j] = 0;
+			this->element[i][j] = value;
 		}	
 	}
 }
-
-Mat::~Mat(){
-	for (i,this->cols){
-		delete[] this->element[i];
+Mat::Mat(_INT dimension,matrixType type){
+	this->rows = dimension;
+	this->cols = dimension;
+	this->element = new _INT*[dimension];
+	for (i, rows){
+		this->element[i] = new _INT[dimension];
 	}
-	delete[] this->element;
+
+	switch (type){
+	case UNIT_MATRIX:{
+						 for (i, rows){
+							 for (j, cols){
+								 if (i == j)
+									 this->element[i][j] = 1;
+								 else
+									 this->element[i][j] = 0;
+							 }
+						 }
+
+	}
+		break;
+	case DIAGONAL_MATRIX:{
+							 for (i, rows){
+								 for (j, cols){
+									 if (i == j)
+										 this->element[i][j] = rand()%10;
+									 else
+										 this->element[i][j] = 0;
+								 }
+							 }
+	}
+		break;
+	case UPPER_TRIANGULAR_MATRIX:{
+									 for (i, rows){
+										 for (j, cols){
+											 if (i <= j)
+												 this->element[i][j] = rand() % 10;
+											 else
+												 this->element[i][j] = 0;
+										 }
+									 }
+	}
+		break;
+	case LOWER_TRIANGULAR_MATRIX:{
+									 for (i, rows){
+										 for (j, cols){
+											 if (i >= j)
+												 this->element[i][j] = rand() % 10;
+											 else
+												 this->element[i][j] = 0;
+										 }
+									 }
+	}
+		break;
+	}
 }
+
+
+
+//Mat::~Mat(){
+//	for (i,this->cols){
+//		delete[] this->element[i];
+//	}
+//	delete[] this->element;
+//}
 _INT Mat::getRows(){
 	return this->rows;
 }

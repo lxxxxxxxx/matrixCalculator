@@ -7,6 +7,9 @@ public:
 
 	Mat(void);
 	Mat(_INT rows, _INT cols);
+	Mat(_INT rows, _INT cols,_INT value);
+	Mat(_INT dimension, matrixType type);
+
 	//SG
 	_INT getRows();
 	_INT getCols();
@@ -34,7 +37,7 @@ public:
 	//³Ë·¨
 	Mat operator*(const Mat &mat_right);
 
-	~Mat();
+	//~Mat();
 
 private:
 	_INT rows;
