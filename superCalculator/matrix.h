@@ -1,6 +1,6 @@
 #include <iostream>
 #include "common.h"
-#include "matrixType.h"
+#include "./enumeration/matrixType.h"
 
 class Mat{
 public:
