@@ -1,6 +1,6 @@
 #include <iostream>
 #include "common.h"
-#include "./enumeration/matrixType.h"
+#include "matrixType.h"
 
 class Mat{
 public:
@@ -8,7 +8,7 @@ public:
 	Mat(void);
 	Mat(_INT rows, _INT cols);
 	Mat(_INT rows, _INT cols,_INT value);
-	Mat(_INT dimension, matrixType type);
+	//Mat(_INT dimension, matrixType type);//∑Ω’Û
 
 	//SG
 	_INT getRows();

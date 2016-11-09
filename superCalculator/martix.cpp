@@ -30,71 +30,71 @@ Mat::Mat(_INT rows, _INT cols,_INT value){
 		}	
 	}
 }
-Mat::Mat(_INT dimension,matrixType type){
-	this->rows = dimension;
-	this->cols = dimension;
-	this->element = new _INT*[dimension];
-	for (i, rows){
-		this->element[i] = new _INT[dimension];
-	}
-
-	switch (type){
-	case UNIT_MATRIX:{
-						 for (i, rows){
-							 for (j, cols){
-								 if (i == j)
-									 this->element[i][j] = 1;
-								 else
-									 this->element[i][j] = 0;
-							 }
-						 }
-
-	}
-		break;
-	case DIAGONAL_MATRIX:{
-							 for (i, rows){
-								 for (j, cols){
-									 if (i == j)
-										 this->element[i][j] = rand()%10;
-									 else
-										 this->element[i][j] = 0;
-								 }
-							 }
-	}
-		break;
-	case UPPER_TRIANGULAR_MATRIX:{
-									 for (i, rows){
-										 for (j, cols){
-											 if (i <= j)
-												 this->element[i][j] = rand() % 10;
-											 else
-												 this->element[i][j] = 0;
-										 }
-									 }
-	}
-		break;
-	case LOWER_TRIANGULAR_MATRIX:{
-									 for (i, rows){
-										 for (j, cols){
-											 if (i >= j)
-												 this->element[i][j] = rand() % 10;
-											 else
-												 this->element[i][j] = 0;
-										 }
-									 }
-	}
-		break;
-	}
-}
-
-
-
-//Mat::~Mat(){
-//	for (i,this->cols){
-//		delete[] this->element[i];
+//Mat::Mat(_INT dimension,matrixType type){
+//	this->rows = dimension;
+//	this->cols = dimension;
+//	this->element = new _INT*[dimension];
+//	for (i, rows){
+//		this->element[i] = new _INT[dimension];
 //	}
-//	delete[] this->element;
+//
+//	switch (type){
+//	case UNIT_MATRIX:{
+//						 for (i, rows){
+//							 for (j, cols){
+//								 if (i == j)
+//									 this->element[i][j] = 1;
+//								 else
+//									 this->element[i][j] = 0;
+//							 }
+//						 }
+//
+//	}
+//		break;
+//	case DIAGONAL_MATRIX:{
+//							 for (i, rows){
+//								 for (j, cols){
+//									 if (i == j)
+//										 this->element[i][j] = rand()%10;
+//									 else
+//										 this->element[i][j] = 0;
+//								 }
+//							 }
+//	}
+//		break;
+//	case UPPER_TRIANGULAR_MATRIX:{
+//									 for (i, rows){
+//										 for (j, cols){
+//											 if (i <= j)
+//												 this->element[i][j] = rand() % 10;
+//											 else
+//												 this->element[i][j] = 0;
+//										 }
+//									 }
+//	}
+//		break;
+//	case LOWER_TRIANGULAR_MATRIX:{
+//									 for (i, rows){
+//										 for (j, cols){
+//											 if (i >= j)
+//												 this->element[i][j] = rand() % 10;
+//											 else
+//												 this->element[i][j] = 0;
+//										 }
+//									 }
+//	}
+//		break;
+//	}
 //}
+
+
+
+mat::~mat(){
+	for (i,this->cols){
+		delete[] this->element[i];
+	}
+	delete[] this->element;
+}
 _INT Mat::getRows(){
 	return this->rows;
 }
@@ -147,22 +147,38 @@ void Mat::strParse(string str){
 	_INT rows = 0;
 	_INT cols = 0;
 	_INT n = 0;
+	_INT m = 0;
 	_INT first;
 	while (1){
-		if (str.find(";",n)==string::npos){
+		if (str.find(';',n)==string::npos){
 			break;
 		}
 		else{
-			first = str.find(";");
-			n = str.find(";", n)+1;
+			first = str.find(';');
+			n = str.find(';', n)+1;
 			rows++;
 		}
 	}
-	for (i, first){
-		cout<<str.find(" ", i);
+	string str_sub = str.substr(0, first);
+	while (1){
+		if (str_sub.find(' ', m) == string::npos){
+			break;
+		}
+		else{
+			m = str_sub.find(' ', m) + 1;
+			cols++;
+			if (str_sub[m + 1] == ' '){
+				while (str_sub[m + 1] == ' ')
+					m++;
+			}
+			m++;
+		}	
 	}
 
-	cout << "rows:    " << ++rows << "    first:    " << first << endl;
+	std::cout << "cols:    " << ++cols << endl;
+
+
+	std::cout << "rows:    " << ++rows << "    first:    " << first << endl;
 }
 //¾ØÕóÊäÈë
 istream &operator >>(istream &in, Mat mat_in){
