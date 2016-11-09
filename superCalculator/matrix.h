@@ -6,9 +6,8 @@ class Mat{
 public:
 
 	Mat(void);
-	Mat(_INT rows, _INT cols);
-	Mat(_INT rows, _INT cols,_INT value);
-	Mat(_INT dimension, matrixType type);
+	Mat(_INT rows, _INT cols);//随机数填充的矩阵
+	Mat(_INT rows, _INT cols,_INT value);//value填充的矩阵
 
 	//SG
 	_INT getRows();
@@ -37,7 +36,7 @@ public:
 	//乘法
 	Mat operator*(const Mat &mat_right);
 
-	//~Mat();
+	~Mat();
 
 private:
 	_INT rows;

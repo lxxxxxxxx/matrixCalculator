@@ -1,18 +1,19 @@
 #include "matrix.h"
+#include <string>
+#include <vector>
 
 int main(){
-	Mat mat1(2, 3);
-	cout << "Ëæ»úÊýÌî³ä\n" << mat1 << endl;
-	Mat mat2(2, 3, 3);
-	cout << "3Ìî³ä\n" << mat2 << endl;
-	Mat mat3(3,0);
-	cout << "µ¥Î»¾ØÕó\n" << mat3 << endl;
-	Mat mat4(3, 1);
-	cout << "¶Ô½Ç¾ØÕó\n" << mat4 << endl;
-	Mat mat5(3, 2);
-	cout << "ÉÏÈý½Ç¾ØÕó\n" << mat5 << endl;
-	Mat mat6(3, 0);
-	cout << "ÏÂÈý½Ç¾ØÕó\n" << mat6 << endl;
+	string str = "123 1 2 3 4;4 5 8 6 4;54 5445 4";
+	std::vector<std::string> subs;
+	int pos;
+	for (int i = 0; i < str.length(); i++){
+		pos=str.find(";", i);
+		string s = str.substr(i, pos);
+		subs.push_back(s);
+	}
+	for (int i = 0; i < subs.size(); i++){
+		cout << subs.at(i) << endl;
+	}
 	system("pause");
 	return 0;
 }

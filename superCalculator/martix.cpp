@@ -8,93 +8,36 @@ Mat::Mat(_INT rows, _INT cols){
 	this->rows = rows;
 	this->cols = cols;
 	this->element = new _INT*[rows];
-	for (i, rows){
+	_FOR(i, rows){
 		this->element[i] = new _INT[cols];
 	}
-	for (i, rows){
-		for (j, cols){
-			this->element[i][j] = rand()%10;
+	_FOR(i, rows){
+		_FOR(j, cols){
+			this->element[i][j] = rand() % 10;
 		}
 	}
 }
-Mat::Mat(_INT rows, _INT cols,_INT value){
+Mat::Mat(_INT rows, _INT cols, _INT value){
 	this->rows = rows;
 	this->cols = cols;
 	this->element = new _INT*[rows];
-	for (i,rows){
+	_FOR(i, rows){
 		this->element[i] = new _INT[cols];
 	}
-	for (i,rows){
-		for (j,cols){
+	_FOR(i, rows){
+		_FOR(j, cols){
 			this->element[i][j] = value;
-		}	
-	}
-}
-Mat::Mat(_INT dimension,matrixType type){
-	this->rows = dimension;
-	this->cols = dimension;
-	this->element = new _INT*[dimension];
-	for (i, rows){
-		this->element[i] = new _INT[dimension];
-	}
-
-	switch (type){
-	case UNIT_MATRIX:{
-						 for (i, rows){
-							 for (j, cols){
-								 if (i == j)
-									 this->element[i][j] = 1;
-								 else
-									 this->element[i][j] = 0;
-							 }
-						 }
-
-	}
-		break;
-	case DIAGONAL_MATRIX:{
-							 for (i, rows){
-								 for (j, cols){
-									 if (i == j)
-										 this->element[i][j] = rand()%10;
-									 else
-										 this->element[i][j] = 0;
-								 }
-							 }
-	}
-		break;
-	case UPPER_TRIANGULAR_MATRIX:{
-									 for (i, rows){
-										 for (j, cols){
-											 if (i <= j)
-												 this->element[i][j] = rand() % 10;
-											 else
-												 this->element[i][j] = 0;
-										 }
-									 }
-	}
-		break;
-	case LOWER_TRIANGULAR_MATRIX:{
-									 for (i, rows){
-										 for (j, cols){
-											 if (i >= j)
-												 this->element[i][j] = rand() % 10;
-											 else
-												 this->element[i][j] = 0;
-										 }
-									 }
-	}
-		break;
+		}
 	}
 }
 
-
-
-//Mat::~Mat(){
-//	for (i,this->cols){
-//		delete[] this->element[i];
-//	}
-//	delete[] this->element;
-//}
+Mat::~Mat(){
+	cout << "Îö¹¹" << endl;
+	_FOR(i, this->rows){
+		delete[] this->element[i];
+	}
+	delete[] this->element;
+}
 _INT Mat::getRows(){
 	return this->rows;
 }
@@ -111,15 +54,15 @@ _VOID Mat::setCols(_INT cols){
 //fill   ok
 _VOID Mat::fill(){
 	srand(10);
-	for (i, this->rows){
-		for (j, this->cols){
+	_FOR(i, this->rows){
+		_FOR(j, this->cols){
 			this->element[i][j] = rand() % 10;
 		}
 	}
 }
 _VOID Mat::fill(_INT value){
-	for (i, this->rows){
-		for (j, this->cols){
+	_FOR(i, this->rows){
+		_FOR(j, this->cols){
 			this->element[i][j] = value;
 		}
 	}
@@ -127,14 +70,14 @@ _VOID Mat::fill(_INT value){
 
 
 //ok
-ostream &operator <<(ostream &out,const Mat &mat_out){
-	if (mat_out.rows==0||mat_out.rows==0)
+ostream &operator <<(ostream &out, const Mat &mat_out){
+	if (mat_out.rows == 0 || mat_out.rows == 0)
 		out << "[\nNULL\n]";
 	else
 	{
 		out << "[" << "\n";
-		for (i, mat_out.rows){
-			for (j,mat_out.cols)
+		_FOR(i, mat_out.rows){
+			_FOR(j, mat_out.cols)
 				out << mat_out.element[i][j] << " ";
 			out << "\n";
 		}
@@ -143,23 +86,23 @@ ostream &operator <<(ostream &out,const Mat &mat_out){
 	return out;
 }
 //×Ö·û´®½âÎö
-void Mat::strParse(string str){
+_VOID Mat::strParse(string str){
 	_INT rows = 0;
 	_INT cols = 0;
 	_INT n = 0;
 	_INT first;
 	while (1){
-		if (str.find(";",n)==string::npos){
+		if (str.find(";", n) == string::npos){
 			break;
 		}
 		else{
 			first = str.find(";");
-			n = str.find(";", n)+1;
+			n = str.find(";", n) + 1;
 			rows++;
 		}
 	}
-	for (i, first){
-		cout<<str.find(" ", i);
+	_FOR(i, first){
+		cout << str.find(" ", i);
 	}
 
 	cout << "rows:    " << ++rows << "    first:    " << first << endl;
@@ -177,19 +120,19 @@ istream &operator >>(istream &in, Mat mat_in){
 Mat Mat::operator+(const Mat &mat_right){
 	if (!(this->rows == mat_right.rows&&this->cols == mat_right.cols)){
 		std::cout << "the nubmers of lines and columns of two matrixs should be identical." << endl;
-		Mat mat_null(0,0);
+		Mat mat_null(0, 0);
 		return mat_null;
 	}
 	else{
 		Mat result(mat_right.rows, mat_right.cols);
-		for (i,this->rows){
-			for (j,this->cols){
+		_FOR(i, this->rows){
+			_FOR(j, this->cols){
 				result.element[i][j] = this->element[i][j] + mat_right.element[i][j];
 			}
 		}
 		return result;
 	}
-	
+
 }
 //ok
 Mat Mat::operator-(const Mat &mat_right){
@@ -200,25 +143,25 @@ Mat Mat::operator-(const Mat &mat_right){
 	}
 	else{
 		Mat result(mat_right.rows, mat_right.cols);
-		for (i,this->rows){
-			for (j,this->cols){
+		_FOR(i, this->rows){
+			_FOR(j, this->cols){
 				result.element[i][j] = this->element[i][j] - mat_right.element[i][j];
 			}
 		}
 		return result;
 	}
-	
+
 }
 //ok
 _VOID Mat::deepcopy(const Mat &mat_original){
 	this->rows = mat_original.rows;
 	this->cols = mat_original.cols;
 	this->element = new _INT*[mat_original.rows];
-	for (i,mat_original.rows){
+	_FOR(i, mat_original.rows){
 		this->element[i] = new _INT[mat_original.cols];
 	}
-	for (i,mat_original.rows){
-		for (j,mat_original.cols){
+	_FOR(i, mat_original.rows){
+		_FOR(j, mat_original.cols){
 			this->element[i][j] = mat_original.element[i][j];
 		}
 	}
@@ -242,13 +185,12 @@ Mat Mat::operator*(const Mat &mat_right){
 		return mat;
 	}
 	else{
-		Mat result(this->rows, mat_right.cols);
-		result.fill(0);
-		for (i, this->rows){
-			for (j, mat_right.cols){
-				for (k, this->cols){
+		Mat result(this->rows, mat_right.cols, 0);
+		_FOR(i, this->rows){
+			_FOR(j, mat_right.cols){
+				_FOR(k, this->cols){
 					result.element[i][j] += (this->element[i][k] * mat_right.element[k][j]);
-					cout << result.element[i][j] << "   " << this->element[i][k] << "   " << mat_right.element[k][j] << endl;
+					//cout << result.element[i][j] << "   " << this->element[i][k] << "   " << mat_right.element[k][j] << endl;
 					_INT a = result.element[i][j];
 				}
 			}
