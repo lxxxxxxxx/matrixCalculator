@@ -12,4 +12,4 @@ using namespace std;
 #define _VOID void
 #define _ENUM enum
 
-#define for(i,n) for(_INT i=0;i<n;i++)
+#define _FOR(i,n) for(_INT i=0;i<n;i++)
