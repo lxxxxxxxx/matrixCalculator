@@ -1,6 +1,7 @@
 #include <iostream>
 #include "common.h"
 #include "matrixType.h"
+#include <vector>
 
 class Mat{
 public:
@@ -8,6 +9,7 @@ public:
 	Mat(void);
 	Mat(_INT rows, _INT cols);//Ëæ»úÊıÌî³äµÄ¾ØÕó
 	Mat(_INT rows, _INT cols,_INT value);//valueÌî³äµÄ¾ØÕó
+	Mat(string str);
 
 	//SG
 	_INT getRows();
@@ -20,9 +22,7 @@ public:
 	//¾ØÕóÊä³ö
 	friend ostream &operator <<(ostream &out,const Mat &mat_out);
 	//×Ö·û´®½âÎö
-	void strParse(string str);
-	//¾ØÕóÊäÈë
-	friend istream &operator >>(istream &in, Mat mat_in);
+	Mat strParse(string &str);
 	//¾ØÕó¼Ó·¨
 	Mat operator +(const Mat &mat_right);
 	//¾ØÕó¼õ·¨

@@ -1,15 +1,25 @@
 #include "matrix.h"
+#include <vector>
 
 Mat::Mat(){
 	this->rows = 0;
 	this->cols = 0;
+	this->element = _NEW _INT*[rows];
+	_FOR(i, rows){
+		this->element[i] = _NEW _INT[cols];
+	}
+	_FOR(i, rows){
+		_FOR(j, cols){
+			this->element[i][j] = rand() % 10;
+		}
+	}
 }
 Mat::Mat(_INT rows, _INT cols){
 	this->rows = rows;
 	this->cols = cols;
-	this->element = new _INT*[rows];
+	this->element = _NEW _INT*[rows];
 	_FOR(i, rows){
-		this->element[i] = new _INT[cols];
+		this->element[i] = _NEW _INT[cols];
 	}
 	_FOR(i, rows){
 		_FOR(j, cols){
@@ -20,20 +30,24 @@ Mat::Mat(_INT rows, _INT cols){
 Mat::Mat(_INT rows, _INT cols, _INT value){
 	this->rows = rows;
 	this->cols = cols;
-	this->element = new _INT*[rows];
+	this->element = _NEW _INT*[rows];
 	_FOR(i, rows){
-		this->element[i] = new _INT[cols];
+		this->element[i] = _NEW _INT[cols];
 	}
 	_FOR(i, rows){
 		_FOR(j, cols){
 			this->element[i][j] = value;
-		}
+		}	
 	}
 }
+Mat::Mat(string str){
+	*this=strParse(str);
+}
+
 
 Mat::~Mat(){
 	cout << "析构" << endl;
-	_FOR(i, this->rows){
+	_FOR (i,this->rows){
 		delete[] this->element[i];
 	}
 	delete[] this->element;
@@ -51,7 +65,7 @@ _VOID Mat::setCols(_INT cols){
 	this->cols = cols;
 }
 
-//fill   ok
+//fill mat   ok
 _VOID Mat::fill(){
 	srand(10);
 	_FOR(i, this->rows){
@@ -67,9 +81,7 @@ _VOID Mat::fill(_INT value){
 		}
 	}
 }
-
-
-//ok
+//output    ok
 ostream &operator <<(ostream &out, const Mat &mat_out){
 	if (mat_out.rows == 0 || mat_out.rows == 0)
 		out << "[\nNULL\n]";
@@ -85,38 +97,48 @@ ostream &operator <<(ostream &out, const Mat &mat_out){
 	}
 	return out;
 }
-//字符串解析
-_VOID Mat::strParse(string str){
-	_INT rows = 0;
-	_INT cols = 0;
-	_INT n = 0;
-	_INT first;
-	while (1){
-		if (str.find(";", n) == string::npos){
+//parse string to a mat     ok
+Mat Mat::strParse(string &str){
+	std::vector<std::string> subs;
+	int pos;
+	_FOR (i,str.length()){
+		pos = str.find(";", i);
+		string s = str.substr(i, pos - i);
+		subs.push_back(s);
+		if (pos == str.npos)
 			break;
-		}
-		else{
-			first = str.find(";");
-			n = str.find(";", n) + 1;
-			rows++;
+		else
+			i = pos;
+	}
+	std::vector<string> *datas = _NEW std::vector<string>[subs.size()];
+	int n = 0;
+	_FOR(i,subs.size()){
+		string temp = subs.at(i);
+		_FOR(j,temp.length()){
+			n = temp.find(' ', j);
+			string sub = temp.substr(j, n - j);
+			datas[i].push_back(sub);
+			if (n == str.npos)
+				break;
+			else
+				j = n;
 		}
 	}
-	_FOR(i, first){
-		cout << str.find(" ", i);
+	//for (int i = 0; i < subs.size(); i++){
+	//	cout << subs.at(i) << endl;
+	//}
+	Mat mat(subs.size(), datas[0].size());
+	for (int i = 0; i < subs.size(); i++){
+		for (int j = 0; j < datas[i].size(); j++){
+			mat.element[i][j] = atoi(datas[i].at(j).c_str());
+//			cout << datas[i].at(j) << endl;
+		}
 	}
-
-	cout << "rows:    " << ++rows << "    first:    " << first << endl;
+	delete[] datas;
+	cout << mat << endl;
+	return mat;
 }
-//矩阵输入
-istream &operator >>(istream &in, Mat mat_in){
-	string str_mat;
-	in >> str_mat;
-	str_mat.find(";");
-	cout << str_mat;
-	return in;
-}
-
-//ok
+//mat add     ok
 Mat Mat::operator+(const Mat &mat_right){
 	if (!(this->rows == mat_right.rows&&this->cols == mat_right.cols)){
 		std::cout << "the nubmers of lines and columns of two matrixs should be identical." << endl;
@@ -132,9 +154,9 @@ Mat Mat::operator+(const Mat &mat_right){
 		}
 		return result;
 	}
-
+	
 }
-//ok
+//mat subtraction     ok
 Mat Mat::operator-(const Mat &mat_right){
 	if (!(this->rows == mat_right.rows&&this->rows == mat_right.rows)){
 		std::cout << "\nthe nubmers of lines and columns of two matrixs should be identical." << endl;
@@ -150,15 +172,15 @@ Mat Mat::operator-(const Mat &mat_right){
 		}
 		return result;
 	}
-
+	
 }
-//ok
+//deep copy    ok
 _VOID Mat::deepcopy(const Mat &mat_original){
 	this->rows = mat_original.rows;
 	this->cols = mat_original.cols;
-	this->element = new _INT*[mat_original.rows];
+	this->element = _NEW _INT*[mat_original.rows];
 	_FOR(i, mat_original.rows){
-		this->element[i] = new _INT[mat_original.cols];
+		this->element[i] = _NEW _INT[mat_original.cols];
 	}
 	_FOR(i, mat_original.rows){
 		_FOR(j, mat_original.cols){
@@ -166,18 +188,18 @@ _VOID Mat::deepcopy(const Mat &mat_original){
 		}
 	}
 }
-//ok
+//copy constraction   ok
 Mat::Mat(Mat &mat_right){
 	cout << "调用了拷贝构造函数" << endl;
 	deepcopy(mat_right);
 }
-//ok
+//assignmaent    ok
 Mat &Mat::operator=(Mat &mat_right){
 	std::cout << "调用了赋值运算符" << endl;
 	deepcopy(mat_right);
 	return *this;
 }
-//ok
+//multiplication    ok
 Mat Mat::operator*(const Mat &mat_right){
 	if (this->cols != mat_right.rows){
 		cout << "wrong operant!!!" << endl;
