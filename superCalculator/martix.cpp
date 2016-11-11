@@ -199,6 +199,9 @@ Mat &Mat::operator=(Mat &mat_right){
 	deepcopy(mat_right);
 	return *this;
 }
+
+
+
 //multiplication    ok
 Mat Mat::operator*(const Mat &mat_right){
 	if (this->cols != mat_right.rows){
