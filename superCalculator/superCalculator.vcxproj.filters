@@ -19,23 +19,32 @@
     <Filter Include="头文件\sc_datastructure\enumeration">
       <UniqueIdentifier>{7ec663c0-569a-483c-9c15-e7fa82722c7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\sc_datastructure\datastructure">
+      <UniqueIdentifier>{17776e5b-6f63-4165-9760-84cd3adc3bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\sc_datastructure\test">
+      <UniqueIdentifier>{3beb5ea2-f08b-44b5-ae31-d68e5e9c2e02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matrix.h">
-      <Filter>头文件\sc_datastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="array.h">
-      <Filter>头文件\sc_datastructure</Filter>
-    </ClInclude>
     <ClInclude Include="common.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="matrixType.h">
       <Filter>头文件\sc_datastructure\enumeration</Filter>
     </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>头文件\sc_datastructure\datastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="testOperator.h">
+      <Filter>头文件\sc_datastructure\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="martix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="testOperator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp">

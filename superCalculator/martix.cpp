@@ -1,5 +1,4 @@
 #include "matrix.h"
-#include <vector>
 
 Mat::Mat(){
 	this->rows = 0;
@@ -44,9 +43,8 @@ Mat::Mat(string str){
 	*this=strParse(str);
 }
 
-
 Mat::~Mat(){
-	cout << "析构" << endl;
+	//cout << "析构" << endl;
 	_FOR (i,this->rows){
 		delete[] this->element[i];
 	}
@@ -58,28 +56,24 @@ _INT Mat::getRows(){
 _INT Mat::getCols(){
 	return this->cols;
 }
-_VOID Mat::setRows(_INT rows){
-	this->rows = rows;
-}
-_VOID Mat::setCols(_INT cols){
-	this->cols = cols;
-}
 
 //fill mat   ok
-_VOID Mat::fill(){
+Mat &Mat::fill(){
 	srand(10);
 	_FOR(i, this->rows){
 		_FOR(j, this->cols){
 			this->element[i][j] = rand() % 10;
 		}
 	}
+	return *this;
 }
-_VOID Mat::fill(_INT value){
+Mat &Mat::fill(_INT value){
 	_FOR(i, this->rows){
 		_FOR(j, this->cols){
 			this->element[i][j] = value;
 		}
 	}
+	return *this;
 }
 //output    ok
 ostream &operator <<(ostream &out, const Mat &mat_out){
@@ -124,18 +118,13 @@ Mat Mat::strParse(string &str){
 				j = n;
 		}
 	}
-	//for (int i = 0; i < subs.size(); i++){
-	//	cout << subs.at(i) << endl;
-	//}
 	Mat mat(subs.size(), datas[0].size());
 	for (int i = 0; i < subs.size(); i++){
 		for (int j = 0; j < datas[i].size(); j++){
 			mat.element[i][j] = atoi(datas[i].at(j).c_str());
-//			cout << datas[i].at(j) << endl;
 		}
 	}
 	delete[] datas;
-	cout << mat << endl;
 	return mat;
 }
 //mat add     ok
@@ -190,12 +179,12 @@ _VOID Mat::deepcopy(const Mat &mat_original){
 }
 //copy constraction   ok
 Mat::Mat(Mat &mat_right){
-	cout << "调用了拷贝构造函数" << endl;
+	//cout << "调用了拷贝构造函数" << endl;
 	deepcopy(mat_right);
 }
-//assignmaent    ok
+//assignment    ok
 Mat &Mat::operator=(Mat &mat_right){
-	std::cout << "调用了赋值运算符" << endl;
+	//std::cout << "调用了赋值运算符" << endl;
 	deepcopy(mat_right);
 	return *this;
 }
@@ -222,4 +211,14 @@ Mat Mat::operator*(const Mat &mat_right){
 		}
 		return result;
 	}
+}
+//transposition
+Mat Mat::transposition(){
+	Mat mat_trans(this->cols, this->rows);
+	_FOR(i, this->rows){
+		_FOR(j, this->cols){
+			mat_trans.element[j][i] = this->element[i][j];
+		}
+	}
+	return mat_trans;
 }
