@@ -2,6 +2,10 @@
 
 _VOID testMatrixFirstStage(){
 	Mat mat1;
+
+
+
+
 	cout << "mat1默认构造的：    " << mat1 << endl;
 	Mat mat2(5, 6);
 	cout << "mat2随机数填充:     " << mat2 << endl;
