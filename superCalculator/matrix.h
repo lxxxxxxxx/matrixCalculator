@@ -5,13 +5,12 @@
 #include "common.h"
 #include "matrixType.h"
 
-template <typename TY1>
 class Mat{
 public:
 	//construction function
 	Mat(void);
 	Mat(_INT rows, _INT cols);//fill with random
-	Mat(_INT rows, _INT cols, TY1 value);//fill with value
+	Mat(_INT rows, _INT cols, _INT value);//fill with value
 	Mat(string str); //initialization with a string
 	Mat(Mat &mat_right);//copy construction
 	//destructor
@@ -29,7 +28,7 @@ public:
 	//aassignment
 	Mat &operator=(Mat &mat_right);
 	//output matrix
-	friend ostream &operator <<(ostream &out, const Mat &mat_out);
+	friend ostream &operator <<(ostream &out,const Mat &mat_out);
 	//string parse
 	Mat strParse(string &str);
 	//addition
