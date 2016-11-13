@@ -209,6 +209,9 @@ Mat<TY1> &Mat<TY1>::operator=(Mat<TY1> &mat_right){
 	deepcopy(mat_right);
 	return *this;
 }
+
+
+
 //multiplication    ok
 template <typename TY1>
 Mat<TY1> Mat<TY1>::operator*(const Mat<TY1> &mat_right){
