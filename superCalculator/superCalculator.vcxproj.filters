@@ -39,6 +39,9 @@
     <ClInclude Include="testOperator.h">
       <Filter>头文件\sc_datastructure\test</Filter>
     </ClInclude>
+    <ClInclude Include="expression.h">
+      <Filter>头文件\sc_datastructure\datastructure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="martix.cpp">

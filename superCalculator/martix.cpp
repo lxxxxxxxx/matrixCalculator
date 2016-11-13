@@ -1,11 +1,12 @@
 #include "matrix.h"
 
-Mat::Mat(){
+template <typename TY1>
+Mat<TY1>::Mat(){
 	this->rows = 0;
 	this->cols = 0;
-	this->element = _NEW _INT*[rows];
+	this->element = _NEW TY1*[rows];
 	_FOR(i, rows){
-		this->element[i] = _NEW _INT[cols];
+		this->element[i] = _NEW TY1[cols];
 	}
 	_FOR(i, rows){
 		_FOR(j, cols){
@@ -13,12 +14,14 @@ Mat::Mat(){
 		}
 	}
 }
-Mat::Mat(_INT rows, _INT cols){
+
+template <typename TY1>
+Mat<TY1>::Mat(_INT rows, _INT cols){
 	this->rows = rows;
 	this->cols = cols;
-	this->element = _NEW _INT*[rows];
+	this->element = _NEW TY1*[rows];
 	_FOR(i, rows){
-		this->element[i] = _NEW _INT[cols];
+		this->element[i] = _NEW TY1[cols];
 	}
 	_FOR(i, rows){
 		_FOR(j, cols){
@@ -26,12 +29,14 @@ Mat::Mat(_INT rows, _INT cols){
 		}
 	}
 }
-Mat::Mat(_INT rows, _INT cols, _INT value){
+
+template <typename TY1>
+Mat<TY1>::Mat(_INT rows, _INT cols, TY1 value){
 	this->rows = rows;
 	this->cols = cols;
-	this->element = _NEW _INT*[rows];
+	this->element = _NEW TY1*[rows];
 	_FOR(i, rows){
-		this->element[i] = _NEW _INT[cols];
+		this->element[i] = _NEW TY1[cols];
 	}
 	_FOR(i, rows){
 		_FOR(j, cols){
@@ -39,26 +44,34 @@ Mat::Mat(_INT rows, _INT cols, _INT value){
 		}	
 	}
 }
-Mat::Mat(string str){
+
+template <typename TY1>
+Mat<TY1>::Mat(string str){
 	*this=strParse(str);
 }
 
-Mat::~Mat(){
+template <typename TY1>
+Mat<TY1>::~Mat(){
 	//cout << "析构" << endl;
 	_FOR (i,this->rows){
 		delete[] this->element[i];
 	}
 	delete[] this->element;
 }
-_INT Mat::getRows(){
+
+template <typename TY1>
+_INT Mat<TY1>::getRows(){
 	return this->rows;
 }
-_INT Mat::getCols(){
+
+template <typename TY1>
+_INT Mat<TY1>::getCols(){
 	return this->cols;
 }
 
 //fill mat   ok
-Mat &Mat::fill(){
+template <typename TY1>
+Mat<TY1> &Mat<TY1>::fill(){
 	srand(10);
 	_FOR(i, this->rows){
 		_FOR(j, this->cols){
@@ -67,7 +80,8 @@ Mat &Mat::fill(){
 	}
 	return *this;
 }
-Mat &Mat::fill(_INT value){
+template <typename TY1>
+Mat<TY1> &Mat<TY1>::fill(_INT value){
 	_FOR(i, this->rows){
 		_FOR(j, this->cols){
 			this->element[i][j] = value;
@@ -76,7 +90,8 @@ Mat &Mat::fill(_INT value){
 	return *this;
 }
 //output    ok
-ostream &operator <<(ostream &out, const Mat &mat_out){
+template <typename TY1>
+ostream &operator <<(ostream &out, const Mat<TY1> &mat_out){
 	if (mat_out.rows == 0 || mat_out.rows == 0)
 		out << "[\nNULL\n]";
 	else
@@ -92,7 +107,8 @@ ostream &operator <<(ostream &out, const Mat &mat_out){
 	return out;
 }
 //parse string to a mat     ok
-Mat Mat::strParse(string &str){
+template <typename TY1>
+Mat<TY1> Mat<TY1>::strParse(string &str){
 	std::vector<std::string> subs;
 	int pos;
 	_FOR (i,str.length()){
@@ -118,7 +134,7 @@ Mat Mat::strParse(string &str){
 				j = n;
 		}
 	}
-	Mat mat(subs.size(), datas[0].size());
+	Mat<TY1> mat(subs.size(), datas[0].size());
 	for (int i = 0; i < subs.size(); i++){
 		for (int j = 0; j < datas[i].size(); j++){
 			mat.element[i][j] = atoi(datas[i].at(j).c_str());
@@ -128,10 +144,11 @@ Mat Mat::strParse(string &str){
 	return mat;
 }
 //mat add     ok
-Mat Mat::operator+(const Mat &mat_right){
+template <typename TY1>
+Mat<TY1> Mat<TY1>::operator+(const Mat &mat_right){
 	if (!(this->rows == mat_right.rows&&this->cols == mat_right.cols)){
 		std::cout << "the nubmers of lines and columns of two matrixs should be identical." << endl;
-		Mat mat_null(0, 0);
+		Mat<TY1> mat_null(0, 0);
 		return mat_null;
 	}
 	else{
@@ -146,7 +163,8 @@ Mat Mat::operator+(const Mat &mat_right){
 	
 }
 //mat subtraction     ok
-Mat Mat::operator-(const Mat &mat_right){
+template <typename TY1>
+Mat<TY1> Mat<TY1>::operator-(const Mat<TY1> &mat_right){
 	if (!(this->rows == mat_right.rows&&this->rows == mat_right.rows)){
 		std::cout << "\nthe nubmers of lines and columns of two matrixs should be identical." << endl;
 		Mat mat_return(0, 0);
@@ -164,7 +182,8 @@ Mat Mat::operator-(const Mat &mat_right){
 	
 }
 //deep copy    ok
-_VOID Mat::deepcopy(const Mat &mat_original){
+template <typename TY1>
+_VOID Mat<TY1>::deepcopy(const Mat<TY1> &mat_original){
 	this->rows = mat_original.rows;
 	this->cols = mat_original.cols;
 	this->element = _NEW _INT*[mat_original.rows];
@@ -178,18 +197,21 @@ _VOID Mat::deepcopy(const Mat &mat_original){
 	}
 }
 //copy constraction   ok
-Mat::Mat(Mat &mat_right){
+template <typename TY1>
+Mat<TY1>::Mat(Mat<TY1> &mat_right){
 	//cout << "调用了拷贝构造函数" << endl;
 	deepcopy(mat_right);
 }
 //assignment    ok
-Mat &Mat::operator=(Mat &mat_right){
+template <typename TY1>
+Mat<TY1> &Mat<TY1>::operator=(Mat<TY1> &mat_right){
 	//std::cout << "调用了赋值运算符" << endl;
 	deepcopy(mat_right);
 	return *this;
 }
 //multiplication    ok
-Mat Mat::operator*(const Mat &mat_right){
+template <typename TY1>
+Mat<TY1> Mat<TY1>::operator*(const Mat<TY1> &mat_right){
 	if (this->cols != mat_right.rows){
 		cout << "wrong operant!!!" << endl;
 		Mat mat;
@@ -210,7 +232,8 @@ Mat Mat::operator*(const Mat &mat_right){
 	}
 }
 //transposition
-Mat Mat::transposition(){
+template <typename TY1>
+Mat<TY1> Mat<TY1>::transposition(){
 	Mat mat_trans(this->cols, this->rows);
 	_FOR(i, this->rows){
 		_FOR(j, this->cols){
